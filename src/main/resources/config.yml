@@ -1,0 +1,41 @@
+#██╗░░░░░███████╗██╗░░░██╗███████╗██╗░░░░░████████╗░█████╗░░█████╗░██╗░░░░░░██████╗
+#██║░░░░░██╔════╝██║░░░██║██╔════╝██║░░░░░╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░██╔════╝
+#██║░░░░░█████╗░░╚██╗░██╔╝█████╗░░██║░░░░░░░░██║░░░██║░░██║██║░░██║██║░░░░░╚█████╗░
+#██║░░░░░██╔══╝░░░╚████╔╝░██╔══╝░░██║░░░░░░░░██║░░░██║░░██║██║░░██║██║░░░░░░╚═══██╗
+#███████╗███████╗░░╚██╔╝░░███████╗███████╗░░░██║░░░╚█████╔╝╚█████╔╝███████╗██████╔╝
+#╚══════╝╚══════╝░░░╚═╝░░░╚══════╝╚══════╝░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝╚═════╝░
+settings:
+  #What to replace the %xp_needed% placeholder with once the user has reached max level
+  onlyplayerdamage: false
+  progressbar:
+    filler: "|"
+    bars: 10
+    incomplete_color: "c"
+    complete_color: "a"
+
+pickaxe:
+  enabled: true
+  totalLevels: 100
+  lore:
+    - "&7Blocks: &b%blocks%"
+    - "&7Level: &b%level% &8(&a%percentage%%&8)"
+    - "&7XP: &c%xp% / %xp_needed%"
+    - "&7Progress: &8[%progressbar%&8]"
+
+  #How much XP each block should give?
+  blocks:
+    - STONE:1
+  disabled_worlds:
+    - "example"
+
+  levels:
+    1:
+      xp-needed: 0
+      rewards:
+        - "[cmd] eco give %player% 100"
+        - "[message] &bCongrats %player% you have reached level 1 on your pickaxe"
+        - "[enchant] DIG_SPEED 1"
+    2:
+      xp-needed: 100
+      rewards:
+        - "[cmd] eco give %player% 200"
