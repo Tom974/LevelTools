@@ -1,7 +1,0 @@
-name: LevelTools
-version: 2.0.4
-main: dev.tom974.LevelTools.Main
-softdepend: [ PlasmaPrisonCore, ]
-commands:
-  leveltools:
-    description: main command
