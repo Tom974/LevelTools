@@ -28,14 +28,9 @@ pickaxe:
   disabled_worlds:
     - "example"
 
-  levels:
-    1:
-      xp-needed: 0
-      rewards:
-        - "[cmd] eco give %player% 100"
-        - "[message] &bCongrats %player% you have reached level 1 on your pickaxe"
-        - "[enchant] DIG_SPEED 1"
-    2:
-      xp-needed: 100
-      rewards:
-        - "[cmd] eco give %player% 200"
+  xp-formula: "(%base% * %current_level%) + %base%"
+  xp-base: 500
+  rewards:
+    1-400:
+      - "[cmd] eco give %player% 100"
+      - "[message] &bCongrats %player% you have reached level 1 on your pickaxe"

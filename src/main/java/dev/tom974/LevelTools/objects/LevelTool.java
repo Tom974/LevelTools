@@ -168,23 +168,28 @@ public abstract class LevelTool {
     }
 
     public void checkForNextLevel() {
-        for (String s : configuration.getConfigurationSection(toolType + ".levels").getKeys(false)) {
-            int xpNeeded = getXPNeeded(Integer.parseInt(s));
-            if (xp >= xpNeeded) {
-                int nextLevel = Integer.parseInt(s);
-                if (level == nextLevel) continue;
-                if (level > nextLevel) continue;
-                this.level = nextLevel;
-                for (String reward : configuration.getStringList(toolType + ".levels." + s + ".rewards")) {
-                    String[] splits = reward.split(" ", 2);
-                    String prefix = splits[0];
-                    if (prefix.equalsIgnoreCase("[cmd]")) Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), splits[1].replace("%player%", player.getName()));
-                    if (prefix.equalsIgnoreCase("[message]")) player.sendMessage(Util.translateColorCodes(splits[1].replace("%player%", player.getName())));
+        int xpneeded = getXPNeeded();
+        if (xp >= xpneeded) {
+            int nextLevel = this.level + 1;
+            if (level == nextLevel) return;
+            if (level > nextLevel) return;
+            this.level = nextLevel;
+            this.xp = 0; // reset the xp xd
+            for (String key : configuration.getConfigurationSection(toolType + ".rewards").getKeys(false)) {
+                if (key.startsWith("#")) continue;
+                int from = Integer.parseInt(key.split("-")[0]);
+                int to = Integer.parseInt(key.split("-")[1]);
+                if (level >= from && level < to) {
+                    for (String command : configuration.getStringList(toolType + ".rewards" + key)) {
+                        String[] cmdsplits = command.split(" ", 2);
+                        String prefix = cmdsplits[0];
+                        if (prefix.equalsIgnoreCase("[cmd]")) Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), cmdsplits[1].replace("%player%", player.getName()));
+                        if (prefix.equalsIgnoreCase("[message]")) player.sendMessage(Util.translateColorCodes(cmdsplits[1].replace("%player%", player.getName())));
+                    }
                 }
-
-                // You have leveled up! yay!
-                player.setLevel(Integer.valueOf(s));
             }
+            // You have leveled up! yay!
+            player.setLevel(level);
         }
     }
 }

@@ -27,16 +27,10 @@ public class BlockBreakEvent implements Listener {
     @EventHandler
     public void blockBreakEvent(org.bukkit.event.block.BlockBreakEvent event) {
 
-        // if (event.isCancelled()) {
-        //     return;
-        // }
-
-        // TODO: use this? this is for checking if the region starts with mine-
-        // boolean bool = manager.getApplicableRegions(event.getBlock().getLocation()).getRegions().stream().anyMatch(region->region.getId().startsWith("mine-"));
         RegionManager manager = container.get(event.getBlock().getWorld());
-        if (manager == null) return; // no regions in this world (or worldguard is not installed
+        if (manager == null) return;
         boolean bool = manager.getApplicableRegions(event.getBlock().getLocation()).getRegions().stream().anyMatch(region->region.getFlag(DefaultFlag.BLOCK_BREAK) == State.ALLOW);
-        if (!bool) return; // user is not in a region where block break is allowed, so dont add pickaxe xp
+        if (!bool) return;
 
         String material = event.getPlayer().getInventory().getItemInMainHand().getType().toString();
         if (!LevelToolHandler.blockBreakItems.contains(material)) {

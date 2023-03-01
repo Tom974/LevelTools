@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
     private static Main instance;
@@ -19,15 +18,15 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        new Metrics(this, 11581);
         instance = this;
         saveDefaultConfig();
         File configFile = new File(getDataFolder(), "config.yml");
-        List<String> ignoredSections = Arrays.asList("pickaxe", "axe", "bow", "crossbow", "sword", "shovel");
+        List<String> ignoredSections = Arrays.asList("pickaxe");
         updateConfig(configFile, ignoredSections);
         reloadConfig();
         getServer().getPluginCommand("leveltools").setExecutor(new Command());
         getServer().getPluginManager().registerEvents(new BlockBreakEvent(), this);
+        new Placeholders().register();
     }
 
     private void updateConfig(File file, List<String> ignoredSections) {
@@ -37,6 +36,4 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
-
 }

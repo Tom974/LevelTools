@@ -1,7 +1,11 @@
 name: LevelTools
 version: 2.0.4
 main: dev.tom974.LevelTools.Main
-softdepend: [ PlasmaPrisonCore, ]
+depend: [ PlasmaPrisonCore, PlaceholderAPI]
+author: MyNqme
 commands:
   leveltools:
-    description: main command
+    description: main command for the leveltools plugin!
+    aliases:
+      - pickaxelevel
+      - lvltools
