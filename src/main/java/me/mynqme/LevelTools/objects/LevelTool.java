@@ -1,16 +1,15 @@
-package dev.tom974.LevelTools.objects;
+package me.mynqme.LevelTools.objects;
 
-import com.cryptomorin.xseries.XEnchantment;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import dev.tom974.LevelTools.Main;
-import dev.tom974.LevelTools.util.Util;
+import me.mynqme.LevelTools.Main;
+import me.mynqme.LevelTools.util.Util;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -63,6 +62,13 @@ public abstract class LevelTool {
         return this.nbtItem;
     }
 
+    public void addLevel(int amt, Player player) {
+        this.level += amt;
+        if (this.level >= configuration.getInt(toolType + ".totalLevels")) {
+            this.level = configuration.getInt(toolType + ".totalLevels");
+        }
+    }
+
     public void addXP(int amt, Player player) {
         LuckPerms api = LuckPermsProvider.get();
         User user = api.getPlayerAdapter(Player.class).getUser(player);
@@ -76,7 +82,7 @@ public abstract class LevelTool {
             }
         }
 
-        Bukkit.getLogger().info("Adding xp:" + amt + " with multiplier:" + multi + " " + Math.round(amt * multi));
+//        Bukkit.getLogger().info("Adding xp:" + amt + " with multiplier:" + multi + " " + Math.round(amt * multi));
         this.xp += Math.round(amt * multi);
     }
 
@@ -157,18 +163,20 @@ public abstract class LevelTool {
         return getXPNeeded(this.level + 1);
     }
 
-    private int getXPNeeded(int level) {
+    private int getXPNeeded(int lvl) {
         int xpneeded = 0;
-        if (configuration.contains(toolType + ".levels." + level + ".xp-needed")) {
-            xpneeded = configuration.getInt(toolType + ".levels." + level + ".xp-needed");
-        } else {
-            xpneeded = configuration.getInt(toolType + ".levels." + level + ".damage-needed");
+        if (player.getInventory().getItemInMainHand().getType().equals(Material.DIAMOND_PICKAXE)) {
+            xpneeded = (configuration.getInt(toolType + ".xp-base") * lvl);
         }
         return xpneeded;
     }
 
     public void checkForNextLevel() {
-        int xpneeded = getXPNeeded();
+        int xpneeded = this.getXPNeeded();
+        if (this.level >= configuration.getInt(toolType + ".totalLevels")) {
+            this.xp = this.getXPNeeded();
+            return;
+        }
         if (xp >= xpneeded) {
             int nextLevel = this.level + 1;
             if (level == nextLevel) return;

@@ -1,4 +1,4 @@
-package dev.tom974.LevelTools.objects;
+package me.mynqme.LevelTools.objects;
 
 import org.bukkit.entity.Player;
 
@@ -8,4 +8,6 @@ public interface Handler {
     void saveItem();
 
     void addXP(int amt, Player player);
+
+    void addLevel(int amt, Player player);
 }

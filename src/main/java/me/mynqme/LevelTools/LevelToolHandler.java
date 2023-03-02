@@ -1,7 +1,7 @@
-package dev.tom974.LevelTools;
+package me.mynqme.LevelTools;
 
-import dev.tom974.LevelTools.objects.Handler;
-import dev.tom974.LevelTools.objects.tools.BlockBreakTool;
+import me.mynqme.LevelTools.objects.Handler;
+import me.mynqme.LevelTools.objects.tools.BlockBreakTool;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

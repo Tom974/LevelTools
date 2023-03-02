@@ -1,7 +1,7 @@
-package dev.tom974.LevelTools.util;
+package me.mynqme.LevelTools.util;
 
 import com.google.common.base.Strings;
-import dev.tom974.LevelTools.Main;
+import me.mynqme.LevelTools.Main;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.Configuration;
 

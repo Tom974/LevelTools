@@ -27,8 +27,6 @@ pickaxe:
     - STONE:1
   disabled_worlds:
     - "example"
-
-  xp-formula: "(%base% * %current_level%) + %base%"
   xp-base: 500
   rewards:
     1-400:

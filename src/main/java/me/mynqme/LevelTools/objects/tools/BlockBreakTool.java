@@ -1,10 +1,10 @@
-package dev.tom974.LevelTools.objects.tools;
+package me.mynqme.LevelTools.objects.tools;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import dev.tom974.LevelTools.Main;
-import dev.tom974.LevelTools.objects.Handler;
-import dev.tom974.LevelTools.objects.LevelTool;
-import dev.tom974.LevelTools.util.Util;
+import me.mynqme.LevelTools.Main;
+import me.mynqme.LevelTools.objects.Handler;
+import me.mynqme.LevelTools.objects.LevelTool;
+import me.mynqme.LevelTools.util.Util;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.Configuration;
@@ -47,6 +47,11 @@ public class BlockBreakTool extends LevelTool implements Handler {
         this.blocksBroken += 1;
         saveItem();
     }
+
+//    @Override
+//    public void addLevel(int amt, Player player) {
+//        super.addLevel(amt, player);
+//    }
 
     @Override
     protected void setCustomLore() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>dev.tom974.LevelTools</groupId>
+  <groupId>me.mynqme.LevelTools</groupId>
   <artifactId>LevelTools</artifactId>
   <version>2.0.4-SNAPSHOT</version>
   <build>
@@ -22,11 +22,11 @@
           <relocations>
             <relocation>
               <pattern>de.tr7zw.changeme.nbtapi</pattern>
-              <shadedPattern>dev.tom974.LevelTools.utils</shadedPattern>
+              <shadedPattern>me.mynqme.LevelTools.utils</shadedPattern>
             </relocation>
             <relocation>
               <pattern>com.cryptomorin.xseries</pattern>
-              <shadedPattern>dev.tom974.LevelTools.utils</shadedPattern>
+              <shadedPattern>me.mynqme.LevelTools.utils</shadedPattern>
             </relocation>
           </relocations>
           <filters>
@@ -134,7 +134,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 </project>

@@ -1,7 +1,7 @@
-package dev.tom974.LevelTools;
+package me.mynqme.LevelTools;
 
 import com.tchristofferson.configupdater.ConfigUpdater;
-import dev.tom974.LevelTools.events.*;
+import me.mynqme.LevelTools.events.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;

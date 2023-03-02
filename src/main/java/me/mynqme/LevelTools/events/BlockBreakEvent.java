@@ -1,9 +1,8 @@
-package dev.tom974.LevelTools.events;
+package me.mynqme.LevelTools.events;
 
-import dev.tom974.LevelTools.LevelToolHandler;
-import dev.tom974.LevelTools.objects.Handler;
+import me.mynqme.LevelTools.LevelToolHandler;
+import me.mynqme.LevelTools.objects.Handler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
