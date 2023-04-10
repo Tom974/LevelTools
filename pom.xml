@@ -59,10 +59,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.tchristofferson</groupId>
-            <artifactId>ConfigUpdater</artifactId>
-            <version>2.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>com.github.Simplix-Softworks</groupId>
+            <artifactId>SimplixStorage</artifactId>
+            <version>3.2.5</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -73,21 +72,14 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.11.2</version>
+            <version>2.11.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.tr7zw</groupId>
-            <artifactId>item-nbt-api</artifactId>
-            <version>2.11.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>me.mynqme</groupId>
-            <artifactId>PlasmaPrisonCoreDependecies</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../PlasmaPrisonCore/target/PlasmaPrisonCore-1.0.jar</systemPath>
+            <artifactId>item-nbt-api-plugin</artifactId>
+            <version>2.11.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
@@ -100,6 +92,13 @@
                     <artifactId>bukkit</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>me.mynqme</groupId>
+            <artifactId>multipliers</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../Multipliers/target/multipliers-1.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
@@ -115,54 +114,5 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <id>shade</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>de.tr7zw.changeme.nbtapi</pattern>
-                            <shadedPattern>me.mynqme.LevelTools.utils</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.cryptomorin.xseries</pattern>
-                            <!-- Be sure to change the package below -->
-                            <shadedPattern>me.mynqme.LevelTools.utils</shadedPattern>
-                        </relocation>
-                    </relocations>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>com/cryptomorin/xseries/XBiome*</exclude>
-                                <exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
-                                <exclude>com/cryptomorin/xseries/XBlock*</exclude>
-                                <exclude>com/cryptomorin/xseries/XPotion*</exclude>
-                                <exclude>com/cryptomorin/xseries/XSound*</exclude>
-                                <exclude>com/cryptomorin/xseries/XTag*</exclude>
-                                <exclude>com/cryptomorin/xseries/XItemStack*</exclude>
-                                <exclude>com/cryptomorin/xseries/XEntity*</exclude>
-                                <exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
-                                <exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
-                                <exclude>com/cryptomorin/xseries/SkullCacheListener*</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

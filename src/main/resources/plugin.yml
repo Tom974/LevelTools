@@ -1,7 +1,7 @@
 name: LevelTools
 version: 2.0.4
 main: me.mynqme.LevelTools.Main
-depend: [ PlasmaPrisonCore, PlaceholderAPI]
+depend: [ PlaceholderAPI, NBTAPI, Multipliers]
 author: MyNqme
 commands:
   leveltools:

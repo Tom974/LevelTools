@@ -1,12 +1,12 @@
 package me.mynqme.LevelTools.objects;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTItem;
 import me.mynqme.LevelTools.Main;
 import me.mynqme.LevelTools.util.Util;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
-import net.luckperms.api.node.Node;
+import me.mynqme.multipliers.Api;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
@@ -19,7 +19,6 @@ import java.util.List;
 
 public abstract class LevelTool {
 
-    private final Configuration configuration = Main.getInstance().getConfig();
     private final NBTItem nbtItem;
     private final String toolType;
     private final Player player;
@@ -64,23 +63,24 @@ public abstract class LevelTool {
 
     public void addLevel(int amt, Player player) {
         this.level += amt;
-        if (this.level >= configuration.getInt(toolType + ".totalLevels")) {
-            this.level = configuration.getInt(toolType + ".totalLevels");
+        if (this.level >= Main.getInstance().config.getInt(toolType + ".totalLevels")) {
+            this.level = Main.getInstance().config.getInt(toolType + ".totalLevels");
         }
     }
 
     public void addXP(int amt, Player player) {
-        LuckPerms api = LuckPermsProvider.get();
-        User user = api.getPlayerAdapter(Player.class).getUser(player);
-        double multi = 1.0;
-        for (Node node : user.getNodes()) {
-            if (node.getKey().startsWith("leveltools.multiplier.")) {
-                double val = Double.valueOf(node.getKey().split("leveltools.multiplier.")[1]);
-                if (val > multi) {
-                    multi = val;
-                }
-            }
-        }
+//        LuckPerms api = LuckPermsProvider.get();
+//        User user = api.getPlayerAdapter(Player.class).getUser(player);
+//        double multi = 1.0;
+//        for (Node node : user.getNodes()) {
+//            if (node.getKey().startsWith("leveltools.multiplier.")) {
+//                double val = Double.valueOf(node.getKey().split("leveltools.multiplier.")[1]);
+//                if (val > multi) {
+//                    multi = val;
+//                }
+//            }
+//        }
+        double multi = Api.getMultiplier(player, "pickaxexp");
 
 //        Bukkit.getLogger().info("Adding xp:" + amt + " with multiplier:" + multi + " " + Math.round(amt * multi));
         this.xp += Math.round(amt * multi);
@@ -150,7 +150,7 @@ public abstract class LevelTool {
         setCustomLore();
 
         this.nbtItem.mergeCustomNBT(item);
-        this.player.getInventory().getItemInMainHand().setItemMeta(item.getItemMeta());
+//        this.player.getInventory().getItemInMainHand().setItemMeta(item.getItemMeta());
 
         // get percentage needed for next level
         int xpNeeded = getXPNeeded();
@@ -166,14 +166,14 @@ public abstract class LevelTool {
     private int getXPNeeded(int lvl) {
         int xpneeded = 0;
         if (player.getInventory().getItemInMainHand().getType().equals(Material.DIAMOND_PICKAXE)) {
-            xpneeded = (configuration.getInt(toolType + ".xp-base") * lvl);
+            xpneeded = (Main.getInstance().config.getInt(toolType + ".xp-base") * lvl);
         }
         return xpneeded;
     }
 
     public void checkForNextLevel() {
         int xpneeded = this.getXPNeeded();
-        if (this.level >= configuration.getInt(toolType + ".totalLevels")) {
+        if (this.level >= Main.getInstance().config.getInt(toolType + ".totalLevels")) {
             this.xp = this.getXPNeeded();
             return;
         }
@@ -183,12 +183,12 @@ public abstract class LevelTool {
             if (level > nextLevel) return;
             this.level = nextLevel;
             this.xp = 0; // reset the xp xd
-            for (String key : configuration.getConfigurationSection(toolType + ".rewards").getKeys(false)) {
+            for (String key : Main.getInstance().config.getSection(toolType + ".rewards").keySet()) {
                 if (key.startsWith("#")) continue;
                 int from = Integer.parseInt(key.split("-")[0]);
                 int to = Integer.parseInt(key.split("-")[1]);
                 if (level >= from && level < to) {
-                    for (String command : configuration.getStringList(toolType + ".rewards" + key)) {
+                    for (String command : Main.getInstance().config.getStringList(toolType + ".rewards" + key)) {
                         String[] cmdsplits = command.split(" ", 2);
                         String prefix = cmdsplits[0];
                         if (prefix.equalsIgnoreCase("[cmd]")) Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), cmdsplits[1].replace("%player%", player.getName()));
