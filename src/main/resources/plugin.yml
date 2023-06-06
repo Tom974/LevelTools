@@ -1,11 +1,11 @@
 name: LevelTools
-version: 2.0.4
-main: me.mynqme.LevelTools.Main
+version: 1.0
+main: me.mynqme.LevelTools.LevelTools
 depend: [ PlaceholderAPI, NBTAPI, Multipliers]
 author: MyNqme
 commands:
   leveltools:
-    description: main command for the leveltools plugin!
+    description: LevelTools command for the leveltools plugin!
     aliases:
       - pickaxelevel
       - lvltools

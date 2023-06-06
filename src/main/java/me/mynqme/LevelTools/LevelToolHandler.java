@@ -1,7 +1,6 @@
 package me.mynqme.LevelTools;
 
-import me.mynqme.LevelTools.objects.Handler;
-import me.mynqme.LevelTools.objects.tools.BlockBreakTool;
+import me.mynqme.LevelTools.objects.BlockBreakTool;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -12,8 +11,8 @@ public class LevelToolHandler {
     public static final List<String> blockBreakItems = Arrays.asList("DIAMOND_PICKAXE");
 
 
-    public static Handler getLevelTool(Player player, ItemStack item) {
-        Handler handler = null;
+    public static BlockBreakTool getLevelTool(Player player, ItemStack item) {
+        BlockBreakTool handler = null;
         String type = null;
         String itemName = item.getType().toString();
 
@@ -24,7 +23,7 @@ public class LevelToolHandler {
                 break;
         }
 
-        if (Main.getInstance().getConfig().getBoolean(type + ".enabled")) {
+        if (LevelTools.getInstance().getConfig().getBoolean(type + ".enabled")) {
             return handler;
         }
 

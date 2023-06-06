@@ -1,11 +1,4 @@
-#██╗░░░░░███████╗██╗░░░██╗███████╗██╗░░░░░████████╗░█████╗░░█████╗░██╗░░░░░░██████╗
-#██║░░░░░██╔════╝██║░░░██║██╔════╝██║░░░░░╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░██╔════╝
-#██║░░░░░█████╗░░╚██╗░██╔╝█████╗░░██║░░░░░░░░██║░░░██║░░██║██║░░██║██║░░░░░╚█████╗░
-#██║░░░░░██╔══╝░░░╚████╔╝░██╔══╝░░██║░░░░░░░░██║░░░██║░░██║██║░░██║██║░░░░░░╚═══██╗
-#███████╗███████╗░░╚██╔╝░░███████╗███████╗░░░██║░░░╚█████╔╝╚█████╔╝███████╗██████╔╝
-#╚══════╝╚══════╝░░░╚═╝░░░╚══════╝╚══════╝░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝╚═════╝░
 settings:
-  #What to replace the %xp_needed% placeholder with once the user has reached max level
   onlyplayerdamage: false
   progressbar:
     filler: "|"
@@ -13,21 +6,21 @@ settings:
     incomplete_color: "c"
     complete_color: "a"
 
-pickaxe:
-  enabled: true
-  totalLevels: 100
-  lore:
-    - "&7Blocks: &b%blocks%"
-    - "&7Level: &b%level% &8(&a%percentage%%&8)"
-    - "&7XP: &c%xp% / %xp_needed%"
-    - "&7Progress: &8[%progressbar%&8]"
+database:
+  host: "172.18.0.1:3306"
+  user: "user"
+  pass: "pass"
+  database: "database_name"
 
-  #How much XP each block should give?
-  blocks:
-    - STONE:1
-  disabled_worlds:
-    - "example"
+pickaxe:
+  totalLevels: 500
   xp-base: 500
+  lore:
+    - "" # DO NOT TOUCH THIS LINE
+    - "&5&lStatistics" # YOU MUST KEEP THE "Statistics" IN HERE!
+    - "&d▎ &fLevel: &7%level% &8(&a%percentage%%&8)" # YOU MUST KEEP THE "level:" IN HERE
+    - "&d▎ &fXP: &7%xp%/%xp_needed%" # YOU MUST KEEP THE "xp:" IN HERE
+    - "&d▎ &fProgress: &8[%progressbar%&8]" # YOU MUST KEEP THE "Progress:" IN HERE
   rewards:
     1-400:
       - "[cmd] eco give %player% 100"

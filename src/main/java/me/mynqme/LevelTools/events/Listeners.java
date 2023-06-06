@@ -1,18 +1,10 @@
 package me.mynqme.LevelTools.events;
 
-import me.mynqme.LevelTools.LevelToolHandler;
-import me.mynqme.LevelTools.Main;
-import me.mynqme.LevelTools.objects.Handler;
-
-import me.mynqme.LevelTools.objects.tools.BlockBreakTool;
-import me.mynqme.LevelTools.util.Util;
+import me.mynqme.LevelTools.LevelTools;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 
 import com.sk89q.worldguard.bukkit.RegionContainer;
@@ -21,37 +13,51 @@ import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockBreakEvent implements Listener {
+public class Listeners implements Listener {
     private final WorldGuardPlugin worldGuardPlugin = WorldGuardPlugin.inst();
     private final RegionContainer container = worldGuardPlugin.getRegionContainer();
     private final List<ProtectedRegion> blacklist = new ArrayList<>();
+    private final LevelTools instance;
+
+    public Listeners(LevelTools instance) {
+        this.instance = instance;
+    }
 
     @EventHandler
-    public void blockBreakEvent(org.bukkit.event.block.BlockBreakEvent event) {
+    public void blockBreakEvent(BlockBreakEvent event) {
 
         RegionManager manager = container.get(event.getBlock().getWorld());
         if (manager == null) return;
         boolean bool = manager.getApplicableRegions(event.getBlock().getLocation()).getRegions().stream().anyMatch(region->region.getFlag(DefaultFlag.BLOCK_BREAK) == State.ALLOW);
         if (!bool) return;
+        this.instance.handler.handleBlockBreak(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
+        Bukkit.getLogger().info("Handled block break for user");
 
-        String material = event.getPlayer().getInventory().getItemInMainHand().getType().toString();
-        if (!LevelToolHandler.blockBreakItems.contains(material)) {
-            return;
-        }
+//        String material = event.getPlayer().getInventory().getItemInMainHand().getType().toString();
+//        if (!LevelToolHandler.blockBreakItems.contains(material)) {
+//            return;
+//        }
+//
+//        BlockBreakTool handler = LevelToolHandler.getLevelTool(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
+//        if (handler == null) {
+//            return;
+//        }
+//
+//        List<Block> blockList = new ArrayList<>();
+//        blockList.add(event.getBlock());
+//        handler.handle(blockList, event.getPlayer());
+    }
 
-        Handler handler = LevelToolHandler.getLevelTool(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
-        if (handler == null) {
-            return;
-        }
-
-        List<Block> blockList = new ArrayList<>();
-        blockList.add(event.getBlock());
-        handler.handle(blockList, event.getPlayer());
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        this.instance.database.fetchPlayer(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
@@ -75,5 +81,4 @@ public class BlockBreakEvent implements Listener {
         // set old level after respawn
         event.getPlayer().setLevel(oldLevel);
     }
-
 }

@@ -1,7 +1,7 @@
 package me.mynqme.LevelTools.util;
 
 import com.google.common.base.Strings;
-import me.mynqme.LevelTools.Main;
+import me.mynqme.LevelTools.LevelTools;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.Configuration;
 
@@ -19,7 +19,7 @@ public class Util {
     }
 
     public static String getProgressBar(int current, int max) {
-        Configuration config = Main.getInstance().getConfig();
+        Configuration config = LevelTools.getInstance().getConfig();
         char symbol = config.getString("settings.progressbar.filler").charAt(0);
         int totalBars = config.getInt("settings.progressbar.bars");
         ChatColor completedColor = ChatColor.getByChar(config.getString("settings.progressbar.complete_color").charAt(0));
